@@ -96,7 +96,7 @@ describe("W3C Speech API", function() {
       it("should have addFromUri method", function() {
         var list = new SpeechGrammarList("");
         expect(list.addFromUri).toBeDefined()
-        expect(typeof list.addFromUri).toBe("function");
+        expect(typeof list.addFromURI).toBe("function");
       });
 
       it("should have addFromString method", function() {
@@ -110,6 +110,16 @@ describe("W3C Speech API", function() {
   describe("SpeechSynthesis API", function() {
     describe("SpeechSynthesis", function() {
       it("should exist", function() {
+
+        /* */
+     var u = new SpeechSynthesisUtterance();
+     u.text = 'This is a longer text';
+     u.lang = 'en-US';
+     u.rate = 1.2;
+     u.onend = function(event) { alert('Finished in ' + event.elapsedTime + ' seconds.'); }
+     speechSynthesis.speak(u);
+     /* */
+
         expect(window.speechSynthesis).toBeDefined();
       });
 
@@ -142,6 +152,12 @@ describe("W3C Speech API", function() {
       it("should have getVoices method", function() {
         expect(window.speechSynthesis.getVoices).toBeDefined();
         expect(typeof window.speechSynthesis.getVoices).toBe("function");
+      });
+
+      it("getVoices should have at least one voice", function() {
+        var list = window.speechSynthesis.getVoices();
+        expect(list.length, 1);
+        expect(list.item(0).lang, "en");
       });
     });
 
